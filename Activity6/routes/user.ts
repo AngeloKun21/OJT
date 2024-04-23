@@ -1,6 +1,5 @@
 import express, {Express, Response, Request} from "express"
 import Users from "../models/users.model"
-import {Op} from "sequelize"
 
 const userRoute: Express = express()
 
@@ -12,20 +11,17 @@ userRoute.get("/", async(req: Request, res: Response)=>{ //GET ALL
         res.status(500).json(error)
     }
 })
-userRoute.get("/search", async(req: Request, res: Response)=>{ //GET BY SEARCH
-    try{
-        const {query} = req
-        let condition = {
-            [Op.or] :{
-                firstName : {[Op.iLike] : `%${query.searchvalue}`},
-                middleName : {[Op.iLike] : `%${query.searchvalue}`},
-                lastName : {[Op.iLike] : `%${query.searchvalue}`},
-                email : {[Op.iLike] : `%${query.searchvalue}`},
-            }
-        }
-        const response = await Users.findAll({where: condition})
+userRoute.post("/email", async(req: Request, res: Response)=>{ //GET BY SEARCH
+    try {
+        console.log(123)
+        const {body} = req
+        console.log(body)
+        const response = await Users.findOne({ where: {email: body.email, password: body.password, usertypeadmin: body.usertypeadmin}});
+        console.log(body.email)
+        console.log(body.password)
+        console.log(body.usertypeadmin)
         res.status(200).json(response)
-    }catch(error){
+    } catch (error){
         res.status(500).json(error)
     }
 })
@@ -41,6 +37,7 @@ userRoute.get("/:id", async(req: Request, res: Response)=>{ //GET BY SEARCH
 userRoute.post("/", async(req: Request, res: Response)=>{
     try{
         const { body } = req
+        console.log('body :>>>', body);
         const response = await Users.create(body)
         res.status(200).json(response)
     }catch(error){
@@ -50,6 +47,8 @@ userRoute.post("/", async(req: Request, res: Response)=>{
 userRoute.put("/:id", async(req: Request, res: Response)=>{
     try{
         const {body, params} = req
+        console.log('body :>>', body)
+        console.log('params :>>', params);  
         const response = await Users.update(body, {where : params})
         res.status(200).json(response)
     }catch(error){
@@ -68,6 +67,8 @@ userRoute.delete("/:id", async(req: Request, res: Response)=>{
 userRoute.patch("/:id", async(req: Request, res: Response)=>{
     try{
         const {body, params} = req
+        console.log('body :>>', body)
+        console.log('params :>>', params);   
         const response = await Users.update(body, {where: params})
         res.status(200).json(response)
     }catch(error){

@@ -6,12 +6,13 @@ dotenv.config();
 export default class Users extends Model{
     static readonly modelName:string = 'Users';
 
+    declare id: Number;
     declare firstName: string;
     declare middleName: string;
     declare lastName: string;
     declare email: string;
     declare password: string;
-    declare active: boolean;
+    declare usertypeadmin: boolean;
 
     static associate() {
       
@@ -22,7 +23,7 @@ let options: InitOptions = {
     sequelize: sequelizeConnection,
     tableName: Users.modelName,
     schema:'public',
-    paranoid: true
+    paranoid: false
 }
 
 let fields: ModelAttributes = {
@@ -52,10 +53,25 @@ let fields: ModelAttributes = {
         type: new DataTypes.STRING,
         allowNull: true,
     },
-    active: {
+    usertypeadmin: {
         type: new DataTypes.BOOLEAN,
-        allowNull: true
-    }
+        allowNull: true,
+    },
+
+    createdAt:{
+        type: new DataTypes.DATE,
+        allowNull: true,
+    },
+
+    updatedAt:{
+        type: new DataTypes.DATE,
+        allowNull: true,
+    },
+
+    deletedAt:{
+        type: new DataTypes.DATE,
+        allowNull: true,
+    },
 }
 
 Users.init(fields, options)

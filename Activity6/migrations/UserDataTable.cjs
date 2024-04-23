@@ -36,11 +36,7 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: true,
       },
-      contactNo: {
-          type: Sequelize.STRING,
-          allowNull: true,
-      },
-      active: {
+      usertypeadmin: {
           type: Sequelize.BOOLEAN,
           allowNull: true
       },

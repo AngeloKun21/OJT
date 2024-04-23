@@ -1,11 +1,14 @@
 import express, {Express, Response, Request, Application} from "express"
 import userRoute from "./routes/user"
 import RouterMiddleware from "./middleware/middleware"
+import cors from 'cors';
 
-const port:Number = 5004
+const port:Number = 5000
 const app: Application = express()
 
+
 const start = async (app: Application) =>{
+    app.use(cors());
     app.use(RouterMiddleware.routerMiddleware)
     app.use(express.json());
 

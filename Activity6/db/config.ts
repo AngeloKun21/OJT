@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 const dbName = "postgres";
 const dbUserName = "postgres";
-const dbPassword = "1234";
+const dbPassword = "123";
 const dbHost = "localhost";
 const dbPort = 5432;
 const dbDriver = "postgres";
