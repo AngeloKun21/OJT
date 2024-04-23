@@ -1,12 +1,10 @@
 <template>
   <a-layout class="main-div" >
-    <a-layout-header style="background: transparent;">
-    </a-layout-header>
     <a-layout-content>
       <slot />
     </a-layout-content>
     <a-layout-footer style="background: transparent;">
-      <a-col class="pb-2 tracking-wide font-sans text-xs flex justify-center mb-2 font-bold text-white text-center">
+      <a-col class="tracking-wide font-sans text-xs flex justify-center mb-2 font-bold text-white text-center">
         THIS SITE IS CREATED BY DENIEL ANGELO C. BARE.
         <br><br>
         コーディング方法をまだ学習中の意欲的な開発者
