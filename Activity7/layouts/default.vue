@@ -22,6 +22,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url("~/assets/images/loginpagebg.jpg");
+  background-image: url("~/assets/images/default.jpg");
 }
 </style>

@@ -15,6 +15,8 @@
     "@nuxt/types": "^2.17.2",
     "@nuxt/typescript-build": "^3.0.2",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/crypto-js": "^4.2.2",
     "@types/lodash.debounce": "^4.0.9",
     "autoprefixer": "^10.4.16",
     "dayjs-nuxt": "^2.1.9",
@@ -28,9 +30,12 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "ant-design-vue": "^4.1.2",
+    "bcryptjs": "^2.4.3",
+    "crpyto-js": "^0.0.1-security",
     "nuxt": "^3.10.3",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
+    "vue-cryptojs": "^2.4.5",
     "vue-router": "^4.3.0",
     "vue3-apexcharts": "^1.4.1"
   }
