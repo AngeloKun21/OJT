@@ -11,9 +11,21 @@ userRoute.get("/", async(req: Request, res: Response)=>{ //GET ALL
         res.status(500).json(error)
     }
 })
+
+
+userRoute.get("/search/:email", async(req: Request, res: Response)=>{ //GET BY SEARCH
+    try { //Login Auth
+        const {params} = req
+        console.log(params.email)
+        const response = await Users.findOne({where: params});
+        res.status(200).json(response)
+    } catch (error){
+        res.status(500).json(error)
+    }
+})
+
 userRoute.post("/email", async(req: Request, res: Response)=>{ //GET BY SEARCH
-    try {
-        console.log(123)
+    try { //Login Auth
         const {body} = req
         console.log(body)
         const response = await Users.findOne({ where: {email: body.email, password: body.password, usertypeadmin: body.usertypeadmin}});
@@ -25,6 +37,7 @@ userRoute.post("/email", async(req: Request, res: Response)=>{ //GET BY SEARCH
         res.status(500).json(error)
     }
 })
+
 userRoute.get("/:id", async(req: Request, res: Response)=>{ //GET BY SEARCH
     try{
         const {params} = req
@@ -75,5 +88,6 @@ userRoute.patch("/:id", async(req: Request, res: Response)=>{
         res.status(500).json(error)
     }
 })
+
 
 export default userRoute

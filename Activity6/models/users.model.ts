@@ -23,7 +23,7 @@ let options: InitOptions = {
     sequelize: sequelizeConnection,
     tableName: Users.modelName,
     schema:'public',
-    paranoid: false
+    paranoid: true
 }
 
 let fields: ModelAttributes = {
@@ -34,8 +34,8 @@ let fields: ModelAttributes = {
         allowNull: true
     },
     firstName: {
-      type: new DataTypes.STRING,
-      allowNull: true,
+        type: new DataTypes.STRING,
+        allowNull: true,
     },
     middleName: {
         type: new DataTypes.STRING,
