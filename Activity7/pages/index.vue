@@ -34,6 +34,8 @@
 </template>
 
 <script lang="ts" setup>
+
+/*OLD SCRIPT
 import {ref} from 'vue'
 import { useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
@@ -71,23 +73,22 @@ const login = async () => {
       },
       body: JSON.stringify(data),
     }).then((res) => res.json());
-    //proceed to checking hash password
+    //try token
     
     if (user) {
       if('usertypeadmin' in user){
         check_type = user.usertypeadmin;  
         console.log("checking user type logged in ==>>", check_type);
         console.log("log user show ==>>",user)
-
         sessionStorage.setItem('targetedID', JSON.stringify(user.id));
         const storedValue = sessionStorage.getItem('targetedID');
         console.log("ID # ==>>",storedValue)
         if(check_type){
           message.success("Welcome Admin! Login Successful")
-          router.push("/app/dashboard")
+          router.push("/app/admin/dashboard")
         }else{
           message.success("Welcome User! Login Successful")
-          router.push("/app/userDashboard")
+          router.push("/app/user/userDashboard")
         }
       } else {
         console.error("User object does not contain 'usertypeadmin' property");
@@ -96,6 +97,85 @@ const login = async () => {
     } else {
       message.error("Please check your credentials")
     }
+
+  } else {
+    message.error("Credentials Incomplete, Please ensure that all fields are filled up!")
+  }
+}
+*/
+
+
+import {ref} from 'vue'
+import { useRouter } from 'vue-router';
+import { message } from 'ant-design-vue';
+import bcrypt from 'bcryptjs';
+
+let email_typed = ref('');
+let password_typed = ref('');
+const router = useRouter();
+let checked = ref<boolean>(false);
+let check_type = ref<boolean>(false);
+
+const login = async () => {
+  if(email_typed.value.trim() !== '' && password_typed.value.trim() !== ''){ //check email & pass is null
+    
+    const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailFormat.test(email_typed.value)) { //checks email format
+      message.error("Please enter a valid email address");
+    } else {
+
+      const data = { 
+        email: email_typed.value
+      }
+      const user = await fetch("http://localhost:5000/users/email", { //check by email
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMTUsImRhdGUiOiIyMDI0LTA0LTAxVDIzOjE3OjA2LjA1OFoiLCJpYXQiOjE3MTIwMTM0MjYsImV4cCI6MTcxMjAxNTIyNn0.1fi4LqhYq3NQNk9Z0xj2L19FU0Ky3hEECjRcvNPFWeA`
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
+      console.log("fetch user by email", user)
+      
+      if (user) { //if data found
+        const hashedPasswordfromDB = user.password;
+        const match = bcrypt.compareSync(password_typed.value, hashedPasswordfromDB);
+        if (match) { //Compare Password
+          message.success("PASSWORD MATCHED!")
+          console.log("PASSWORD MATCHED!")
+          console.log("switch check ==>>=",checked.value)
+          console.log("usertypeadmin check ==>>=",user.usertypeadmin)
+          if(checked.value != user.usertypeadmin){
+            message.error("Please Check Credentials!")
+            console.log("checked type & usertypeadmin is not matched!");
+          } else {
+            check_type = user.usertypeadmin;  
+            console.log("checking user type logged in ==>>", check_type);
+            console.log("log user show ==>>",user)
+            sessionStorage.setItem('targetedID', JSON.stringify(user.id));
+            const storedValue = sessionStorage.getItem('targetedID');
+            console.log("ID # ==>>",storedValue)
+            if(check_type){
+              message.success("Welcome Admin! Login Successful")
+              router.push("/app/admin/dashboard")
+            }else{
+              message.success("Welcome User! Login Successful")
+              router.push("/app/user/userDashboard")
+            }
+            
+          }
+          
+
+        } else {
+          message.error("Password is not Matched!")
+          console.log("PASSWORD IS NOT MATCHED!")
+        }
+
+      } else {
+        message.error("No Email Exist!")
+      }
+    }
+    
 
   } else {
     message.error("Credentials Incomplete, Please ensure that all fields are filled up!")

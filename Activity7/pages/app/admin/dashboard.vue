@@ -2,7 +2,7 @@
     <div class="dashboard_style">
         <div class="parent_div">
             <!--rgb(179, 138, 88)-->
-            <p class="pl-10 pt-4 pb-12 text-3xl font-mono font-bold flex items-center"><PicLeftOutlined class="pr-2"/>USER DASHBOARD</p>
+            <p class="pl-10 pt-4 pb-2 text-3xl font-mono font-bold flex items-center"><PicLeftOutlined class="pr-2"/>ADMIN DASHBOARD</p>
             <a-row class="flex justify-center font-bold gap-4">
                 <a-col :span="7" class="flex justify-center items-center bg-yellow-200 rounded-full py-4 px-2">
                     <a-col :span="8" class="flex justify-center items-center"><TeamOutlined class="text-6xl"/></a-col>
@@ -15,15 +15,21 @@
                     <a-col :span="8" class="flex justify-center items-center"><FundProjectionScreenOutlined class="text-6xl"/></a-col>
                     <a-col :span="16">
                         <a-col :span="24" class=""> <p class="font-mono text-lg text-center">Current Task:</p></a-col>
-                        <a-col :span="24" class=""> <p class="font-mono text-2xl text-center">404</p></a-col>
+                        <a-col :span="24" class=""> <p class="font-mono text-2xl text-center">25</p></a-col>
                     </a-col>
                 </a-col>
                 <a-col :span="7" class="flex justify-center items-center bg-yellow-200 rounded-full py-4 px-2">
-                    <a-col :span="8" class="flex justify-center items-center"><BugOutlined  class="text-6xl"/></a-col>
+                    <a-col :span="8" class="flex justify-center items-center"><SolutionOutlined class="text-6xl"/></a-col>
                     <a-col :span="16">
                         <a-col :span="24" class=""> <p class="font-mono text-lg text-center">Support Count:</p></a-col>
-                        <a-col :span="24" class=""> <p class="font-mono text-2xl text-center">201</p></a-col>
+                        <a-col :span="24" class=""> <p class="font-mono text-2xl text-center">21</p></a-col>
                     </a-col>
+                </a-col>
+                <!--try lang-->
+                <a-col :span="20" v-for="datas in userData" class="flex justify-center items-center bg-yellow-200 rounded-full py-2 px-2">
+                    <a-col :span="2" class="flex justify-center items-center"><UserOutlined class="flex justify-center text-3xl"/></a-col>
+                    <a-col :span="10" class="flex justify-start items-start"><p class="font-mono text-lg text-center">{{ datas.firstName }} {{ datas.middleName }} {{ datas.lastName }} </p></a-col>
+                    <a-col :span="7" class="flex justify-start items-start"><p class="font-mono text-lg text-center">| {{ datas.email }}</p></a-col>
                 </a-col>
             </a-row>
         </div>
@@ -31,20 +37,32 @@
 </template>
 
 <script lang='ts' setup>
+import { ref, onMounted } from 'vue';
+
 declare function definePageMeta(meta: any): void;
 definePageMeta({
-    layout: 'usersidebar'
+    layout: 'dashboard'
 })
+let userData = ref();
+const userCount = ref();
 
-const user = await fetch("http://localhost:5000/users/", {
+onMounted( async () =>{
+    const user = await fetch("http://localhost:5000/users/", {
       method: "GET",
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMTUsImRhdGUiOiIyMDI0LTA0LTAxVDIzOjE3OjA2LjA1OFoiLCJpYXQiOjE3MTIwMTM0MjYsImV4cCI6MTcxMjAxNTIyNn0.1fi4LqhYq3NQNk9Z0xj2L19FU0Ky3hEECjRcvNPFWeA`
       },
     }).then((res) => res.json());
-    const userCount = user.length
-    console.log("output 'dashboard' ==>>",user)
+    if(user){
+        userCount.value = user.length
+        userData.value = user
+    }
+    console.log("output 'userData' ==>>",userData)
+})
+
+
+
 </script>
 
 <style scoped>
@@ -66,7 +84,8 @@ const user = await fetch("http://localhost:5000/users/", {
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     align-items: center;
-    height: 20em;
+    overflow: auto;
+    height: 40em;
     width: 60em;
 }  
 </style>

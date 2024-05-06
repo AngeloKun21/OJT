@@ -6,16 +6,16 @@
                     <VideoCameraOutlined class="text-5xl p-2 text-center text-yellow-900 bg-yellow-200 border-yellow-900 rounded-full px-4 border-2"/>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('/app/dashboard')" type="text" class="button-style"><FundOutlined/> DASHBOARD </a-button>
+                    <a-button @click="$router.push('/app/admin/dashboard')" type="text" class="button-style"><FundOutlined/> DASHBOARD </a-button>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('/app/profile')" type="text" class="button-style"><UserOutlined /> PROFILE </a-button>
+                    <a-button @click="$router.push('/app/admin/profile')" type="text" class="button-style"><UserOutlined /> PROFILE </a-button>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('/app/accountManage')" type="text" class="button-style"><UnorderedListOutlined /> MANAGE ACCOUNT </a-button>
+                    <a-button @click="$router.push('/app/admin/accountManage')" type="text" class="button-style"><UnorderedListOutlined /> MANAGE ACCOUNT </a-button>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('../')" type="text" class="button-style" ><LogoutOutlined /> LOGOUT </a-button>
+                    <a-button @click="logout" type="text" class="button-style" ><LogoutOutlined /> LOGOUT </a-button>
                 </li>
             </ul>
         </a-layout-sider>
@@ -26,7 +26,13 @@
 </template> 
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
 
+const route = useRouter();
+const logout = async() =>{
+    route.push("/")
+    sessionStorage.removeItem('targetedID');
+}
 </script>
 <style>
 .button-style {

@@ -6,13 +6,13 @@
                     <VideoCameraOutlined class="text-5xl p-2 text-center text-yellow-900 bg-yellow-200 border-yellow-900 rounded-full px-4 border-2"/>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('/app/userdashboard')" type="text" class="button-style"><FundOutlined/> DASHBOARD </a-button>
+                    <a-button @click="$router.push('/app/user/userdashboard')" type="text" class="button-style"><FundOutlined/> DASHBOARD </a-button>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('/app/userprofile')" type="text" class="button-style"><UserOutlined /> PROFILE </a-button>
+                    <a-button @click="$router.push('/app/user/userprofile')" type="text" class="button-style"><UserOutlined /> PROFILE </a-button>
                 </li>
                 <li class="flex justify-center align-center">
-                    <a-button @click="$router.push('../')" type="text" class="button-style" ><LogoutOutlined /> LOGOUT </a-button>
+                    <a-button @click="$router.push('/')" type="text" class="button-style" ><LogoutOutlined /> LOGOUT </a-button>
                 </li>
             </ul>
         </a-layout-sider>
@@ -23,8 +23,6 @@
 </template> 
 
 <script lang="ts" setup>
-import {useRouter} from 'vue-router'
-const router = useRouter;
 </script>
 <style>
 .button-style {

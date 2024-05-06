@@ -46,7 +46,7 @@
                     </a-col>
                     <a-col :span="24" class="flex justify-center items-center">
                         <a-input class="text-black bg-yellow-200 border-gray-300 p-3 w-9/12"
-                            v-model:value="password_typed" placeholder="password" type="password" />
+                            v-model:value="password_typed" placeholder="password" type="password" disabled="true" />
                     </a-col>
 
                     <a-col :span="2" class="pt-2 flex justify-center">
@@ -67,9 +67,8 @@ import { message } from 'ant-design-vue';
 
 declare function definePageMeta(meta: any): void;
 definePageMeta({
-    layout: 'usersidebar'
+    layout: 'dashboard'
 })
-
 const email_typed = ref('');
 const password_typed = ref('');
 const firstname_typed = ref('');
@@ -115,7 +114,7 @@ const updated = async () => {
     // MIDDLENAME
     else if (!regex.test(validate_middlename)) {
         message.error(`Invalid input for MiddleName`);
-    }
+    }   
     // LASTNAME
     else if (!regex.test(validate_lastname)) {
         message.error(`Invalid input for LastName`);
@@ -131,12 +130,12 @@ const updated = async () => {
     }
 
     const data_to_put = await fetch("http://localhost:5000/users/" + userId.value, {
-    method: "PUT",
-    headers: {
+      method: "PUT",
+      headers: {
         "Content-type": "application/json",
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMTUsImRhdGUiOiIyMDI0LTA0LTAxVDIzOjE3OjA2LjA1OFoiLCJpYXQiOjE3MTIwMTM0MjYsImV4cCI6MTcxMjAxNTIyNn0.1fi4LqhYq3NQNk9Z0xj2L19FU0Ky3hEECjRcvNPFWeA`
-    },
-    body: JSON.stringify(gotcha),
+      },
+      body: JSON.stringify(gotcha),
     }).then((res) => res.json());
     message.success("Update Successful!")
     console.log(data_to_put)

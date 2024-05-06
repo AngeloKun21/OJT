@@ -96,7 +96,7 @@ const signup = async () => {
     const validate_firstname = firstname_typed.value;
     const validate_middlename = middlename_typed.value;
     const validate_lastname = lastname_typed.value;
-    const regex = /^[a-zA-Z]+$/; // Only allow letters
+    const regex = /^[a-zA-ZÀ-ÿ-' ]+$/; // Only allow letters const regex = /^[a-zA-Z&&[^Ññ]]+$/; const regex = /^[a-zA-Z]+$/; const regex = /^[a-zA-ZÀ-ÿ-' ]+$/;
     const passwordFormat = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
 
     if(email_typed.value.trim() !== '' && password_typed.value.trim() !== '' && firstname_typed.value.trim() !== '' && middlename_typed.value.trim() !== ''&& lastname_typed.value.trim() !== ''){
