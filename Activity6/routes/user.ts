@@ -28,10 +28,9 @@ userRoute.post("/email", async(req: Request, res: Response)=>{ //GET BY SEARCH
     try { //Login Auth
         const {body} = req
         console.log(body)
-        const response = await Users.findOne({ where: {email: body.email, password: body.password, usertypeadmin: body.usertypeadmin}});
+        const response = await Users.findOne({ where: {email: body.email}});
+        //const response = await Users.findOne({ where: {email: body.email, password: body.password, usertypeadmin: body.usertypeadmin}});
         console.log(body.email)
-        console.log(body.password)
-        console.log(body.usertypeadmin)
         res.status(200).json(response)
     } catch (error){
         res.status(500).json(error)
